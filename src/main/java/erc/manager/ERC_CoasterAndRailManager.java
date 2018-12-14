@@ -1,5 +1,7 @@
 package erc.manager;
 
+import erc.entity.Wrap_EntityCoaster;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.opengl.GL11;
 
@@ -45,6 +47,10 @@ public class ERC_CoasterAndRailManager {
     public static float prevRotationRoll = 0f;
 	
 	public static TileEntityRailBase clickedTileForGUI;
+
+	public static float xOffset = 0.0F;
+	public static float yOffset = 0.0F;
+	public static float zOffset = 0.0F;
 	
 	public ERC_CoasterAndRailManager()
 	{
@@ -171,11 +177,16 @@ public class ERC_CoasterAndRailManager {
     public static void CameraProc(float f)
     {
 //    	ERC_Logger.debugInfo("CoasterManager:CameraProc   p:"+rotationRoll+", pp:"+prevRotationRoll+", pt:"+f);
-    	GL11.glRotatef(prevRotationRoll + (rotationRoll - prevRotationRoll) * f, 0.0F, 0.0F, 1.0F);
-//    	GL11.glRotatef(prevRotationPitch + (rotationPitch - prevRotationPitch) * f, 1.0F, 0.0F, 0.0F);
-//    	GL11.glRotatef(prevRotationYaw + (rotationYaw - prevRotationYaw) * f, 0.0F, 1.0F, 0.0F);
-//    	GL11.glTranslatef(0, 0, 8);
-//    	GL11.glRotatef(prevRotationPitch + (rotationPitch - prevRotationPitch) * f, -1.0F, 0.0F, 0.0F);
+		if(Minecraft.getMinecraft().player.getRidingEntity() instanceof Wrap_EntityCoaster) {
+			float roll = prevRotationRoll + (rotationRoll - prevRotationRoll) * f;
+//			float xOff = 1.0F * (float)-Math.cos(roll * Math.PI / 180.0) + 1.0F; //minus is to the right
+//			float yOff = 1.0F * (float)-Math.cos(roll * Math.PI / 180.0) + 1.25F; //minus is higher
+//			System.out.println("Roll: " + roll + "; x: "+xOff);
+//			GL11.glTranslatef(xOff, yOff, 0F);
+			GL11.glTranslatef(0F, 1F, 0F);
+    		GL11.glRotatef(roll, 0.0F, 0.0F, 1.0F);
+    		GL11.glTranslatef(0F, -1F, 0F);
+		}
 //    	ERC_Logger.debugInfo(""+f+":::"+rotationViewRoll+":::"+prevRotationViewRoll);
     }
     

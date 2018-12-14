@@ -139,13 +139,4 @@ public class ERC_ItemWrench extends Item {
     	}
         return EnumActionResult.FAIL;
 	}
-
-	
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-	{
-		if (blockRailBase.isBlockRail(worldIn.getBlockState(pos).getBlock())) {
-			return EnumActionResult.SUCCESS;
-		}
-		return EnumActionResult.FAIL;
-	}
 }

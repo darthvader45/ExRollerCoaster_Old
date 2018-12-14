@@ -1,6 +1,7 @@
 package erc.item;
 
 import erc.entity.entitySUSHI;
+import erc.manager.ERC_CoasterAndRailManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -15,13 +16,10 @@ public class itemSUSHI extends Item{
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-    	if (!world.isRemote)
-    	{
-    		Entity e = new entitySUSHI(world,pos.getX()+0.5,pos.getY()+0.8,pos.getZ()+0.5);
-//    		Entity e = new entityPartsTestBase(world,x+0.5,y+1.5,z+0.5);
-    		world.spawnEntity(e);
-    	}
-    	player.getHeldItem(hand).grow(-1);
+		if(world.isRemote) {
+			ERC_CoasterAndRailManager.zOffset -= 0.5F;
+			System.out.println("zOffset: "+ERC_CoasterAndRailManager.zOffset);
+		}
     	return EnumActionResult.SUCCESS;
     }
 }

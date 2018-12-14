@@ -14,6 +14,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+
 public class ERC_ItemCoaster extends Wrap_ItemCoaster
 {
     public ERC_ItemCoaster()
@@ -32,17 +34,21 @@ public class ERC_ItemCoaster extends Wrap_ItemCoaster
      */
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-    	if (!blockRailBase.isBlockRail(world.getBlockState(pos).getBlock()))
-    	{
-            return EnumActionResult.FAIL;
+//    	if (!blockRailBase.isBlockRail(world.getBlockState(pos).getBlock()))
+//    	{
+//            return EnumActionResult.FAIL;
+//        }
+//
+//    	if (world.isRemote)
+//    	{
+//    		setCoaster(pos.getX(), pos.getY(), pos.getZ(), -1);
+//    	}
+//
+//        player.getHeldItemMainhand().grow(-1);
+        if(world.isRemote) {
+            ERC_CoasterAndRailManager.xOffset += 0.5F;
+            System.out.println("xOffset: "+ERC_CoasterAndRailManager.xOffset);
         }
-    	
-    	if (world.isRemote)
-    	{
-    		setCoaster(pos.getX(), pos.getY(), pos.getZ(), -1);
-    	}
-
-        player.getHeldItemMainhand().grow(-1);
         return EnumActionResult.SUCCESS;
     }
     

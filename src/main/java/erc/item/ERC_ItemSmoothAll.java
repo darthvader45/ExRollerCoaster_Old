@@ -1,5 +1,6 @@
 package erc.item;
 
+import erc.manager.ERC_CoasterAndRailManager;
 import erc.tileEntity.TileEntityRailBase;
 import erc.tileEntity.Wrap_TileEntityRail;
 import net.minecraft.entity.player.EntityPlayer;
@@ -54,5 +55,14 @@ public class ERC_ItemSmoothAll extends Item {
     		prev.syncData();
     	}
 		smoothrail(num+v, root, (v==1?rail.getNextRailTileEntity():rail.getPrevRailTileEntity()), world, v);
+	}
+
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	{
+		if(world.isRemote) {
+			ERC_CoasterAndRailManager.yOffset -= 0.5F;
+			System.out.println("yOffset: "+ERC_CoasterAndRailManager.yOffset);
+		}
+		return EnumActionResult.SUCCESS; // �A���p�R�[�X�^�[�͒��ڐݒu�ł��Ȃ�
 	}
 }

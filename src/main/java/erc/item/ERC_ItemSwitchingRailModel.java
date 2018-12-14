@@ -1,5 +1,6 @@
 package erc.item;
 
+import erc.manager.ERC_CoasterAndRailManager;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -26,21 +27,26 @@ public class ERC_ItemSwitchingRailModel extends Item{
     
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand)
     {
-    	if (world.isRemote)
-    	{
-    		// �E�N���b�N�����u���b�N�����[���u���b�N�Ȃ�OK
-	    	if (!blockRailBase.isBlockRail(world.getBlockState(pos).getBlock())) return EnumActionResult.FAIL;
-	    	
-	    	// Wrap_TileEntityRail�������OK(���Ԃ񂠂�)
-	    	Wrap_TileEntityRail tile = (Wrap_TileEntityRail) world.getTileEntity(pos);
-	    	
-	    	// ���f���`��N���X����ւ�
-	    	tile.changeRailModelRenderer(modelCount);
-	    	
-	    	ERC_MessageRailGUICtS packet = new ERC_MessageRailGUICtS(pos.getX(), pos.getY(), pos.getZ(), GUIRail.editFlag.RailModelIndex.ordinal(), modelCount);
-	    	ERC_PacketHandler.INSTANCE.sendToServer(packet);
-    	}
-        return EnumActionResult.SUCCESS;
+//    	if (world.isRemote)
+//    	{
+//    		// �E�N���b�N�����u���b�N�����[���u���b�N�Ȃ�OK
+//	    	if (!blockRailBase.isBlockRail(world.getBlockState(pos).getBlock())) return EnumActionResult.FAIL;
+//
+//	    	// Wrap_TileEntityRail�������OK(���Ԃ񂠂�)
+//	    	Wrap_TileEntityRail tile = (Wrap_TileEntityRail) world.getTileEntity(pos);
+//
+//	    	// ���f���`��N���X����ւ�
+//	    	tile.changeRailModelRenderer(modelCount);
+//
+//	    	ERC_MessageRailGUICtS packet = new ERC_MessageRailGUICtS(pos.getX(), pos.getY(), pos.getZ(), GUIRail.editFlag.RailModelIndex.ordinal(), modelCount);
+//	    	ERC_PacketHandler.INSTANCE.sendToServer(packet);
+//    	}
+
+			if(world.isRemote) {
+				ERC_CoasterAndRailManager.zOffset += 0.5F;
+				System.out.println("zOffset: "+ERC_CoasterAndRailManager.zOffset);
+			}
+			return EnumActionResult.SUCCESS; // �A���p�R�[�X�^�[�͒��ڐݒu�ł��Ȃ�
     }
     
     @SideOnly(Side.CLIENT)
